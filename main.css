@@ -1,3 +1,11 @@
 html {
   background: #ddd;
 }
+
+.game-square {
+  float: left;
+  width: 24.5%;
+  border: 1px solid black;
+  height: 50px;
+  text-align: center;
+}
