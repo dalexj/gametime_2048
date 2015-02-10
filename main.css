@@ -2,10 +2,20 @@ html {
   background: #ddd;
 }
 
+.board {
+  width: 40%;
+  margin: 50px auto;
+  border: 1px solid black;
+  border-radius: 9px;
+  padding: 1px 4px 7px;
+}
+
 .game-square {
   float: left;
-  width: 24.5%;
+  width: 23.6%;
   border: 1px solid black;
-  height: 50px;
+  height: 120px;
+  margin: 6px 3px 0px 2px;
   text-align: center;
+  border-radius: 10px;
 }
