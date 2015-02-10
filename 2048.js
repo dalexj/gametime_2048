@@ -1,3 +1,7 @@
+//  0  1  2  3
+//  4  5  6  7
+//  8  9 10 11
+// 12 13 14 15
 'use strict';
 
 var scores = [];
@@ -18,6 +22,30 @@ function restartGame() {
       scores[i] = generateTwoOrFour();
     } else {
       scores[i] = 0;
+    }
+  }
+  drawSquares();
+}
+
+function pushLeft() {
+  var changed = true;
+  var x = 0;
+  while(changed) {
+    changed = false;
+    for(var row = 0; row < 4; row++) {
+      for(var col = 0; col < 3; col++) {
+        var current = scores[row*4 + col];
+        var next    = scores[row*4 + col + 1];
+        if(current === 0 && next != 0) {
+          scores[row*4 + col + 1] = current;
+          scores[row*4 + col]     = next;
+          changed = true;
+        } else if(current != 0 && current === next) {
+          scores[row*4 + col]     = current * 2;
+          scores[row*4 + col + 1] = 0;
+          changed = true;
+        }
+      }
     }
   }
   drawSquares();
