@@ -1,31 +1,28 @@
 'use strict';
 
-$(document).ready(function() {
-  restartGame();
-});
-
-function generateTwoOrFour() {
-  var r = Math.random();
-  return r < 0.70 ? 2 : 4;
+var scores = [];
+for(var i = 0; i < 16; i++) {
+  scores.push(0);
 }
 
-function twoDifferentRandomSquareIndexes() {
-  var num1 = Math.floor(Math.random() * 16);
-  var num2 = num1;
-  while(num1 === num2) {
-    num2 = Math.floor(Math.random() * 16);
-  }
-  return [num1, num2];
+function drawSquares() {
+  $('.game-square').each(function(index, ele) {
+    $(ele).text(scores[index] === 0 ? '' : scores[index]);
+  });
 }
 
 function restartGame() {
   var firstPlacementIndexes = twoDifferentRandomSquareIndexes();
-  $('.game-square').each(function(index, ele) {
-    console.log(firstPlacementIndexes);
-    if(firstPlacementIndexes.indexOf(index) >= 0) {
-      ele.innerText = generateTwoOrFour();
+  for (var i = 0; i < scores.length; i++) {
+    if(firstPlacementIndexes.indexOf(i) >= 0) {
+      scores[i] = generateTwoOrFour();
     } else {
-      ele.innerText = '';
+      scores[i] = 0;
     }
-  });
+  }
+  drawSquares();
 }
+
+$(document).ready(function() {
+  restartGame();
+});
