@@ -19,3 +19,8 @@ html {
   text-align: center;
   border-radius: 10px;
 }
+
+.square-score {
+  position: relative;
+  margin: 42px auto;
+}
