@@ -2,12 +2,17 @@ html {
   background: #ddd;
 }
 
+
+
 .board {
   width: 40%;
   margin: 50px auto;
   border: 1px solid black;
   border-radius: 9px;
   padding: 1px 4px 7px;
+}
+
+.empty-square {
 }
 
 .game-square {
@@ -18,6 +23,7 @@ html {
   margin: 6px 3px 0px 2px;
   text-align: center;
   border-radius: 10px;
+  background-color: #0E2938;
 }
 
 .square-score {
