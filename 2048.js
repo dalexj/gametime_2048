@@ -5,8 +5,12 @@
 'use strict';
 
 var scores = [];
-for(var i = 0; i < 16; i++) {
-  scores.push(0);
+
+function resetScores() {
+  scores = [];
+  for(var i = 0; i < 16; i++) {
+    scores.push(0);
+  }
 }
 
 function drawSquares() {
@@ -16,14 +20,9 @@ function drawSquares() {
 }
 
 function restartGame() {
-  var firstPlacementIndexes = twoDifferentRandomSquareIndexes();
-  for (var i = 0; i < scores.length; i++) {
-    if(firstPlacementIndexes.indexOf(i) >= 0) {
-      scores[i] = generateTwoOrFour();
-    } else {
-      scores[i] = 0;
-    }
-  }
+  resetScores();
+  placeRandomSquare();
+  placeRandomSquare();
   drawSquares();
 }
 
@@ -51,6 +50,16 @@ function pushLeft() {
   drawSquares();
 }
 
+function placeRandomSquare() {
+  var indexesThatHaveSquares = [];
+  for (var i = 0; i < scores.length; i++) {
+    if(scores[i] != 0) indexesThatHaveSquares.push(i);
+  }
+  if(indexesThatHaveSquares.length === 16) return;
+  scores[randomNumberNotIn(indexesThatHaveSquares)] = generateTwoOrFour();
+}
+
 $(document).ready(function() {
+  resetScores();
   restartGame();
 });
