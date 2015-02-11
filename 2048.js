@@ -27,21 +27,35 @@ function restartGame() {
 }
 
 function pushLeft() {
+  push(true, true);
+}
+
+function pushRight() {
+  push(true, false)
+}
+function pushDown() {
+  push(false, false)
+}
+function pushUp() {
+  push(false, true)
+}
+
+function push(horizontal, increasing) {
   var changed = true;
-  var tiles = [];
-  for (var i = 0; i < scores.length; i++) {
-    tiles.push( {score: scores[i], combined: false} );
-  }
-  var x = 0;
+  var tiles = initializeTiles();
   while(changed) {
     changed = false;
-    for(var row = 0; row < 4; row++) {
-      for(var col = 0; col < 3; col++) {
-        var currentTile = tiles[row*4 + col];
-        var nextTile    = tiles[row*4 + col + 1];
-        if(currentTile.score === 0 && nextTile.score != 0) {
-          tiles[row*4 + col]     = nextTile;
-          tiles[row*4 + col + 1] = currentTile;
+    for (var row = 0; row < 4; row++) {
+      for (var col = 0; col < 3; col++) {
+        var currentIndex = horizontal ? row*4 + col : col*4 + row;
+        var direction    = horizontal ? 1 : 4;
+        var destinationIndex = increasing ? (currentIndex + direction) : setDirection(currentIndex, direction);
+
+        var currentTile = tiles[currentIndex];
+        var nextTile    = tiles[destinationIndex];
+        if (currentTile.score === 0 && nextTile.score != 0) {
+          tiles[currentIndex]     = nextTile;
+          tiles[destinationIndex] = currentTile;
           changed = true;
         } else if(currentTile.score != 0 && currentTile.score === nextTile.score && !currentTile.combined && !nextTile.combined) {
           currentTile.score   *= 2;
@@ -56,6 +70,7 @@ function pushLeft() {
   drawSquares();
 }
 
+
 function placeRandomSquare() {
   var indexesThatHaveSquares = [];
   for (var i = 0; i < scores.length; i++) {
@@ -63,6 +78,24 @@ function placeRandomSquare() {
   }
   if(indexesThatHaveSquares.length === 16) return;
   scores[randomNumberNotIn(indexesThatHaveSquares)] = generateTwoOrFour();
+}
+
+function setDirection(currentIndex, direction) {
+  if (direction === 4 && currentIndex < 4 || currentIndex > 11) {
+    return currentIndex
+  } else if (direction === 1 && currentIndex === 0)  {
+    return currentIndex
+  } else {
+    return currentIndex - direction
+  }
+}
+
+function initializeTiles() {
+  var tile_objects = []
+  for (var i = 0; i < scores.length; i++) {
+    tile_objects.push( { score: scores[i], combined: false } );
+  }
+  return tile_objects
 }
 
 $(document).ready(function() {

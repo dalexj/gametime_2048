@@ -2,8 +2,6 @@ html {
   background: #ddd;
 }
 
-
-
 .board {
   width: 40%;
   margin: 50px auto;
@@ -23,7 +21,7 @@ html {
   margin: 6px 3px 0px 2px;
   text-align: center;
   border-radius: 10px;
-  background-color: #0E2938;
+  background-color: #EEE;
 }
 
 .square-score {
