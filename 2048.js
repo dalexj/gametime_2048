@@ -5,8 +5,12 @@
 'use strict';
 
 var scores = [];
-for(var i = 0; i < 16; i++) {
-  scores.push(0);
+
+function resetScores() {
+  scores = [];
+  for(var i = 0; i < 16; i++) {
+    scores.push(0);
+  }
 }
 
 function drawSquares() {
@@ -16,41 +20,52 @@ function drawSquares() {
 }
 
 function restartGame() {
-  var firstPlacementIndexes = twoDifferentRandomSquareIndexes();
-  for (var i = 0; i < scores.length; i++) {
-    if(firstPlacementIndexes.indexOf(i) >= 0) {
-      scores[i] = generateTwoOrFour();
-    } else {
-      scores[i] = 0;
-    }
-  }
+  resetScores();
+  placeRandomSquare();
+  placeRandomSquare();
   drawSquares();
 }
 
 function pushLeft() {
   var changed = true;
+  var tiles = [];
+  for (var i = 0; i < scores.length; i++) {
+    tiles.push( {score: scores[i], combined: false} );
+  }
   var x = 0;
   while(changed) {
     changed = false;
     for(var row = 0; row < 4; row++) {
       for(var col = 0; col < 3; col++) {
-        var current = scores[row*4 + col];
-        var next    = scores[row*4 + col + 1];
-        if(current === 0 && next != 0) {
-          scores[row*4 + col + 1] = current;
-          scores[row*4 + col]     = next;
+        var currentTile = tiles[row*4 + col];
+        var nextTile    = tiles[row*4 + col + 1];
+        if(currentTile.score === 0 && nextTile.score != 0) {
+          tiles[row*4 + col]     = nextTile;
+          tiles[row*4 + col + 1] = currentTile;
           changed = true;
-        } else if(current != 0 && current === next) {
-          scores[row*4 + col]     = current * 2;
-          scores[row*4 + col + 1] = 0;
+        } else if(currentTile.score != 0 && currentTile.score === nextTile.score && !currentTile.combined && !nextTile.combined) {
+          currentTile.score   *= 2;
+          nextTile.score       = 0;
+          currentTile.combined = true
           changed = true;
         }
       }
     }
   }
+  scores = tiles.map( function(ele) { return ele.score; } );
   drawSquares();
 }
 
+function placeRandomSquare() {
+  var indexesThatHaveSquares = [];
+  for (var i = 0; i < scores.length; i++) {
+    if(scores[i] != 0) indexesThatHaveSquares.push(i);
+  }
+  if(indexesThatHaveSquares.length === 16) return;
+  scores[randomNumberNotIn(indexesThatHaveSquares)] = generateTwoOrFour();
+}
+
 $(document).ready(function() {
+  resetScores();
   restartGame();
 });

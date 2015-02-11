@@ -4,11 +4,10 @@ function generateTwoOrFour() {
   return r < 0.70 ? 2 : 4;
 }
 
-function twoDifferentRandomSquareIndexes() {
-  var num1 = Math.floor(Math.random() * 16);
-  var num2 = num1;
-  while(num1 === num2) {
-    num2 = Math.floor(Math.random() * 16);
+function randomNumberNotIn(numbers) {
+  var num = Math.floor(Math.random() * 16);
+  while(numbers.indexOf(num) >= 0) {
+    num = Math.floor(Math.random() * 16);
   }
-  return [num1, num2];
+  return num;
 }
