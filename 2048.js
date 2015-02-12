@@ -3,7 +3,6 @@
 //  8  9 10 11
 // 12 13 14 15
 'use strict';
-
 var scores = [];
 
 function resetScores() {
@@ -27,11 +26,11 @@ function restartGame() {
 }
 
 function pushLeft() {
-  push(true, true);
+  push(true, false);
 }
 
 function pushRight() {
-  push(true, false);
+  push(true, true);
 }
 function pushDown() {
   push(false, false);
@@ -43,16 +42,16 @@ function pushUp() {
 function push(horizontal, increasing) {
   var changed = true;
   var tiles = initializeTiles();
+
   while(changed) {
     changed = false;
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 3; j++) {
-        // var currentIndex = horizontal ? row*4 + col : col*4 + row;
-        // var direction    = horizontal ? 1 : 4;
-        // var nextIndex = increasing ? (currentIndex + direction) : setDirection(currentIndex, direction);
-        var currentIndex = calculateCurrentIndex(i, j, horizontal);
-        var nextIndex    = calculateNextIndex(currentIndex, horizontal, increasing);
+
+    var currentIndex = 0;
+    for (var row = 0; row < 4; row++) {
+      for (var col = 0; col < 4; col++) {
+        var nextIndex = calculateNextIndex(currentIndex, horizontal, increasing);
         changed = swapOrCombineTiles(tiles, currentIndex, nextIndex) || changed;
+        currentIndex += 1;
       }
     }
   }
@@ -61,23 +60,83 @@ function push(horizontal, increasing) {
 }
 
 function calculateNextIndex(currentIndex, horizontal, increasing) {
-  return "herbert do this";
+  var nextIndex = 0;
+  var herbertIsDumb = false;
+
+  var left  = horizontal  && !increasing;
+  var right = horizontal  && increasing;
+  var up    = !horizontal && increasing;
+  var down  = !horizontal && !increasing;
+
+  left    ? nextIndex = calculateLeft(currentIndex)   :
+  right   ? nextIndex = calculateRight(currentIndex)  :
+  up      ? nextIndex = calculateUp(currentIndex)     :
+  down    ? nextIndex = calculateDown(currentIndex)   :
+  herbertIsDumb = true;
+
+  if (herbertIsDumb) return "Damn, Herbert's dumb..."; else  return nextIndex;
 }
 
-function calculateCurrentIndex(i, j, horizontal) {
-  var row = horizontal ? i : j;
-  var col = horizontal ? j : i;
-  return "herbert do this";
+function calculateLeft(currentIndex) {
+  var result = 0;
+
+  currentIndex ===  0 ? result = currentIndex :
+  currentIndex ===  4 ? result = currentIndex :
+  currentIndex ===  8 ? result = currentIndex :
+  currentIndex === 12 ? result = currentIndex :
+  result = currentIndex - 1;
+
+  return result;
+}
+
+function calculateRight(currentIndex) {
+  var result = 0;
+
+  currentIndex ===  3 ? result = currentIndex :
+  currentIndex ===  7 ? result = currentIndex :
+  currentIndex === 11 ? result = currentIndex :
+  currentIndex === 15 ? result = currentIndex :
+  result = currentIndex + 1;
+
+  return result;
+}
+
+function calculateUp(currentIndex) {
+  var result = 0;
+
+  currentIndex === 0 ? result = currentIndex :
+  currentIndex === 1 ? result = currentIndex :
+  currentIndex === 2 ? result = currentIndex :
+  currentIndex === 3 ? result = currentIndex :
+  result = currentIndex - 4;
+
+  return result;
+}
+
+function calculateDown(currentIndex) {
+  var result = 0;
+
+  currentIndex === 12 ? result = currentIndex :
+  currentIndex === 13 ? result = currentIndex :
+  currentIndex === 14 ? result = currentIndex :
+  currentIndex === 15 ? result = currentIndex :
+  result = currentIndex + 4;
+
+  return result;
 }
 
 function swapOrCombineTiles(tiles, currIndex, nextIndex) {
+  var result = 0;
+
   var currTile = tiles[currIndex];
   var nextTile = tiles[nextIndex];
-  if (currTile.score === 0 && nextTile.score !== 0) {
+  if (currTile.score !== 0 && nextTile.score === 0) {
     tiles[currIndex] = nextTile;
     tiles[nextIndex] = currTile;
     return true;
-  } else if(currTile.score !== 0 && currTile.score === nextTile.score && !currTile.combined && !nextTile.combined) {
+  } else if (nextTile.score !== 0) {
+    tiles[currIndex] = currTile;
+  } else if (currTile.score !== 0 && currTile.score === nextTile.score && !currTile.combined && !nextTile.combined) {
     currTile.score   *= 2;
     nextTile.score    = 0;
     currTile.combined = true;
@@ -93,16 +152,6 @@ function placeRandomSquare() {
   }
   if(indexesThatHaveSquares.length === 16) return;
   scores[randomNumberNotIn(indexesThatHaveSquares)] = generateTwoOrFour();
-}
-
-function setDirection(currentIndex, direction) {
-  if (direction === 4 && currentIndex < 4 || currentIndex > 11) {
-    return currentIndex;
-  } else if (direction === 1 && currentIndex === 0)  {
-    return currentIndex;
-  } else {
-    return currentIndex - direction;
-  }
 }
 
 function initializeTiles() {
