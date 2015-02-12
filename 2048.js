@@ -32,16 +32,20 @@ function restartGame() {
 
 function pushLeft() {
   push(true, true);
+  return false;
 }
 
 function pushRight() {
   push(true, false);
+  return false;
 }
 function pushDown() {
   push(false, false);
+  return false;
 }
 function pushUp() {
   push(false, true);
+  return false;
 }
 
 function push(horizontal, increasing) {
@@ -62,16 +66,24 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  animateTiles(beforeTiles, tiles);
+  animateTiles(tiles, horizontal, increasing);
   placeRandomSquare();
 }
 
-function animateTiles(beforeTiles, tiles) {
-  
+function animateTiles(tiles, horizontal, increasing) {
   for (var i = 0; i < tiles.length; i++) {
-    if (!beforeTiles[i] === tiles[i]) {
-      $(['.row-', findRow(tiles[i].id), '.col-', findCol()].join('')).animate({top:'-=125'}, 200, drawSquares);
-    }
+    var nowRow = Math.floor(i / 4) + 1;
+    var nowCol = (i % 4) + 1;
+    var beforeRow = Math.floor(tiles[i].beforeIndex/4) + 1;
+    var beforeCol = (tiles[i].beforeIndex%4) + 1;
+
+    var moved = horizontal ? beforeCol - nowCol : beforeRow - nowRow;
+    var animateAmount = 125 * moved;
+    if (increasing) animateAmount *=- 1;
+    var animateOptions = {};
+    animateOptions[horizontal ? "left" : "top"] = (increasing ? "+" : "-") + '=' + animateAmount;
+
+    $(['.row-', beforeRow, '.col-', beforeCol].join('')).animate(animateOptions, { duration: 200, complete: drawSquares });
   }
 }
 
@@ -127,7 +139,7 @@ function placeRandomSquare() {
 function initializeTiles() {
   var tileObjects = [];
   for (var i = 0; i < scores.length; i++) {
-    tileObjects.push( { score: scores[i], combined: false, id: i } );
+    tileObjects.push( { score: scores[i], combined: false, beforeIndex: i } );
   }
   return tileObjects;
 }
