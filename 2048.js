@@ -30,21 +30,21 @@ function restartGame() {
   drawSquares();
 }
 
-function pushLeft() {
-  push(true, true);
+function pushLeft(noNewTile) {
+  push(true, true, noNewTile);
 }
 
-function pushRight() {
-  push(true, false);
+function pushRight(noNewTile) {
+  push(true, false, noNewTile);
 }
-function pushDown() {
-  push(false, false);
+function pushDown(noNewTile) {
+  push(false, false, noNewTile);
 }
-function pushUp() {
-  push(false, true);
+function pushUp(noNewTile) {
+  push(false, true, noNewTile);
 }
 
-function push(horizontal, increasing) {
+function push(horizontal, increasing, noNewTile) {
   var changed = true;
   var tiles = initializeTiles();
   while(changed) {
@@ -61,7 +61,7 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  placeRandomSquare();
+  if(!noNewTile) placeRandomSquare();
   drawSquares();
 }
 
