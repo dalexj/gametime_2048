@@ -47,7 +47,6 @@ function pushUp() {
 function push(horizontal, increasing) {
   var changed = true;
   var tiles = initializeTiles();
-  var beforeTiles = tiles;
   while(changed) {
     changed = false;
     for (var i = 0; i < 4; i++) {
@@ -62,7 +61,6 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  animateTiles(beforeTiles, tiles);
   placeRandomSquare();
   drawSquares();
 }
@@ -119,7 +117,7 @@ function placeRandomSquare() {
 function initializeTiles() {
   var tileObjects = [];
   for (var i = 0; i < scores.length; i++) {
-    tileObjects.push( { score: scores[i], combined: false, id: i } );
+    tileObjects.push( { score: scores[i], combined: false } );
   }
   return tileObjects;
 }
