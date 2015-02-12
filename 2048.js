@@ -64,7 +64,14 @@ function push(horizontal, increasing) {
   scores = tiles.map( function(ele) { return ele.score; } );
   animateTiles(beforeTiles, tiles);
   placeRandomSquare();
-  drawSquares();
+}
+
+function animateTiles(beforeTiles, tiles) {
+  for (var i = 0; i < tiles.length; i++) {
+    if (!beforeTiles[i] === tiles[i]) {
+      $('.row-3.col-4').animate({top:'-=125'}, 200, drawSquares);
+    }
+  }
 }
 
 function calculateCurrentIndex(i, j, horizontal, increasing) {
@@ -132,5 +139,4 @@ $(document).ready(function() {
   Mousetrap.bind("down",  pushDown);
   Mousetrap.bind("left",  pushLeft);
   Mousetrap.bind("right", pushRight);
-
 });
