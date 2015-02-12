@@ -182,8 +182,8 @@ QUnit.test('can combine empty spots up', function( assert ) {
   ];
   pushUp();
   var expectedScores = [
-  4,8,4,4,
-  8,4,4,4,
+  8,8,4,4,
+  4,4,4,4,
   0,0,4,0,
   0,0,0,0
   ];
@@ -197,12 +197,12 @@ QUnit.test('can combine more empty spots up', function( assert ) {
   4,2,4,0,
   4,0,2,0,
   4,0,2,0,
-  4,2,2,0
+  4,2,4,0
   ];
   pushUp();
   var expectedScores = [
   8,4,4,0,
-  8,0,2,0,
+  8,0,4,0,
   0,0,4,0,
   0,0,0,0
   ];
@@ -245,8 +245,8 @@ QUnit.test('can combine empty spots down', function( assert ) {
   var expectedScores = [
   0,0,0,0,
   0,0,4,0,
-  8,4,4,4,
-  4,8,4,4
+  4,4,4,4,
+  8,8,4,4
   ];
 
   assert.deepEqual(scores, expectedScores, 'Pushing all rows down' );
@@ -255,7 +255,7 @@ QUnit.test('can combine empty spots down', function( assert ) {
 
 QUnit.test('can combine more empty spots down', function( assert ) {
   scores = [
-  4,2,2,0,
+  4,2,4,0,
   4,0,2,0,
   4,0,2,0,
   4,2,4,0
@@ -264,7 +264,7 @@ QUnit.test('can combine more empty spots down', function( assert ) {
   var expectedScores = [
   0,0,0,0,
   0,0,4,0,
-  8,0,2,0,
+  8,0,4,0,
   8,4,4,0
   ];
 
