@@ -47,6 +47,7 @@ function pushUp() {
 function push(horizontal, increasing) {
   var changed = true;
   var tiles = initializeTiles();
+  var beforeTiles = tiles;
   while(changed) {
     changed = false;
     for (var i = 0; i < 4; i++) {
@@ -61,6 +62,7 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
+  animateTiles(beforeTiles, tiles);
   placeRandomSquare();
   drawSquares();
 }
@@ -117,7 +119,7 @@ function placeRandomSquare() {
 function initializeTiles() {
   var tileObjects = [];
   for (var i = 0; i < scores.length; i++) {
-    tileObjects.push( { score: scores[i], combined: false } );
+    tileObjects.push( { score: scores[i], combined: false, id: i } );
   }
   return tileObjects;
 }
@@ -125,4 +127,10 @@ function initializeTiles() {
 $(document).ready(function() {
   resetScores();
   restartGame();
+
+  Mousetrap.bind("up",    pushUp);
+  Mousetrap.bind("down",  pushDown);
+  Mousetrap.bind("left",  pushLeft);
+  Mousetrap.bind("right", pushRight);
+
 });
