@@ -33,6 +33,7 @@ function restartGame() {
 function pushLeft(noNewTile) {
   push(true, true, noNewTile);
   return false;
+  // lemme merge
  }
 
 function pushRight(noNewTile) {
