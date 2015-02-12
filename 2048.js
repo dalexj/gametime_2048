@@ -13,9 +13,14 @@ function resetScores() {
 }
 
 function drawSquares() {
-  $('.game-square').each(function(index, ele) {
-    $(ele).text(scores[index] === 0 ? '' : scores[index]);
-  });
+  $('#tiles').text('');
+  for (var i = 0; i < scores.length; i++) {
+    if(scores[i] !== 0) {
+      var row = Math.floor(i/4) + 1;
+      var col = (i%4) + 1;
+      $('#tiles').append(['<div class="game-tile col-', col, ' row-', row, ' tile-', scores[i], '">', scores[i], '</div>'].join(''));
+    }
+  }
 }
 
 function restartGame() {
@@ -56,6 +61,7 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
+  placeRandomSquare();
   drawSquares();
 }
 
