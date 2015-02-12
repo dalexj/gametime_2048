@@ -11,8 +11,6 @@ html {
   background: #BBADA0;
 }
 
-.empty-square {
-}
 
 .game-square {
   float: left;
@@ -36,10 +34,6 @@ html {
   font-family: 'Comic Sans MS', sans-serif;
 }
 
-.square-score {
-  position: relative;
-  margin: 42px auto;
-}
 
 .row-1 { top:   12.5px;  }
 .row-2 { top:  137.5px;  }

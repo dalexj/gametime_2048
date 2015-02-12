@@ -66,20 +66,20 @@ function push(horizontal, increasing) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  animateTiles(tiles, horizontal, increasing);
   placeRandomSquare();
+  animateTiles(tiles, horizontal, increasing);
 }
 
 function animateTiles(tiles, horizontal, increasing) {
   for (var i = 0; i < tiles.length; i++) {
     var nowRow = Math.floor(i / 4) + 1;
     var nowCol = (i % 4) + 1;
-    var beforeRow = Math.floor(tiles[i].beforeIndex/4) + 1;
-    var beforeCol = (tiles[i].beforeIndex%4) + 1;
+    var beforeRow = Math.floor(tiles[i].beforeIndex / 4) + 1;
+    var beforeCol = (tiles[i].beforeIndex % 4) + 1;
 
     var moved = horizontal ? beforeCol - nowCol : beforeRow - nowRow;
     var animateAmount = 125 * moved;
-    if (increasing) animateAmount *=- 1;
+    if (increasing) animateAmount *= -1;
     var animateOptions = {};
     animateOptions[horizontal ? "left" : "top"] = (increasing ? "+" : "-") + '=' + animateAmount;
 
@@ -148,8 +148,8 @@ $(document).ready(function() {
   resetScores();
   restartGame();
 
-  Mousetrap.bind("up",    pushUp);
-  Mousetrap.bind("down",  pushDown);
-  Mousetrap.bind("left",  pushLeft);
-  Mousetrap.bind("right", pushRight);
+  Mousetrap.bind("up",    function() { pushUp();    });
+  Mousetrap.bind("down",  function() { pushDown();  });
+  Mousetrap.bind("left",  function() { pushLeft();  });
+  Mousetrap.bind("right", function() { pushRight(); });
 });
