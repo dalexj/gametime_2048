@@ -126,9 +126,9 @@ $(document).ready(function() {
   resetScores();
   restartGame();
 
-  Mousetrap.bind("up",    pushUp);
-  Mousetrap.bind("down",  pushDown);
-  Mousetrap.bind("left",  pushLeft);
-  Mousetrap.bind("right", pushRight);
+  Mousetrap.bind("up",    function() { pushUp();    });
+  Mousetrap.bind("down",  function() { pushDown();  });
+  Mousetrap.bind("left",  function() { pushLeft();  });
+  Mousetrap.bind("right", function() { pushRight(); });
 
 });
