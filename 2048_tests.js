@@ -39,7 +39,7 @@ QUnit.test('can push empty spots to the left', function( assert ) {
   4,0,2,0,
   2,0,0,4
   ];
-  pushLeft();
+  pushLeft(true);
   var expectedScores = [
   4,2,0,0,
   4,2,0,0,
@@ -58,7 +58,7 @@ QUnit.test('can combine empty spots to the left', function( assert ) {
   4,2,2,4,
   2,2,0,4
   ];
-  pushLeft();
+  pushLeft(true);
   var expectedScores = [
   4,8,0,0,
   8,4,0,0,
@@ -77,7 +77,7 @@ QUnit.test('can combine more empty spots to the left', function( assert ) {
   2,2,2,4,
   0,0,0,0
   ];
-  pushLeft();
+  pushLeft(true);
   var expectedScores = [
   8,8,0,0,
   4,0,0,0,
@@ -100,7 +100,7 @@ QUnit.test('can push empty spots to the right', function( assert ) {
   0,2,0,4,
   4,0,0,2
   ];
-  pushRight();
+  pushRight(true);
   var expectedScores = [
   0,0,2,4,
   0,0,2,4,
@@ -119,7 +119,7 @@ QUnit.test('can combine empty spots to the right', function( assert ) {
   4,2,2,4,
   4,0,2,2
   ];
-  pushRight();
+  pushRight(true);
   var expectedScores = [
   0,0,8,4,
   0,0,4,8,
@@ -138,7 +138,7 @@ QUnit.test('can combine more empty spots to the right', function( assert ) {
   4,2,2,2,
   0,0,0,0
   ];
-  pushRight();
+  pushRight(true);
   var expectedScores = [
   0,0,8,8,
   0,0,0,4,
@@ -161,7 +161,7 @@ QUnit.test('can push empty spots up', function( assert ) {
   4,2,2,0,
   2,0,0,4
   ];
-  pushUp();
+  pushUp(true);
   var expectedScores = [
   4,4,4,2,
   2,2,2,4,
@@ -180,7 +180,7 @@ QUnit.test('can combine empty spots up', function( assert ) {
   2,4,2,2,
   2,0,4,2
   ];
-  pushUp();
+  pushUp(true);
   var expectedScores = [
   8,8,4,4,
   4,4,4,4,
@@ -199,7 +199,7 @@ QUnit.test('can combine more empty spots up', function( assert ) {
   4,0,2,0,
   4,2,4,0
   ];
-  pushUp();
+  pushUp(true);
   var expectedScores = [
   8,4,4,0,
   8,0,4,0,
@@ -222,7 +222,7 @@ QUnit.test('can push empty spots down', function( assert ) {
   0,4,0,0,
   0,0,4,2,
   ];
-  pushDown();
+  pushDown(true);
   var expectedScores = [
   0,0,0,0,
   0,0,0,0,
@@ -241,7 +241,7 @@ QUnit.test('can combine empty spots down', function( assert ) {
   4,4,2,0,
   4,4,4,4
   ];
-  pushDown();
+  pushDown(true);
   var expectedScores = [
   0,0,0,0,
   0,0,4,0,
@@ -260,7 +260,7 @@ QUnit.test('can combine more empty spots down', function( assert ) {
   4,0,2,0,
   4,2,4,0
   ];
-  pushDown();
+  pushDown(true);
   var expectedScores = [
   0,0,0,0,
   0,0,4,0,

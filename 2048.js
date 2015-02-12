@@ -67,9 +67,10 @@ function push(horizontal, increasing) {
 }
 
 function animateTiles(beforeTiles, tiles) {
+  
   for (var i = 0; i < tiles.length; i++) {
     if (!beforeTiles[i] === tiles[i]) {
-      $('.row-3.col-4').animate({top:'-=125'}, 200, drawSquares);
+      $(['.row-', findRow(tiles[i].id), '.col-', findCol()].join('')).animate({top:'-=125'}, 200, drawSquares);
     }
   }
 }
