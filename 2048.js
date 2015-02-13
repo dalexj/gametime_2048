@@ -4,6 +4,25 @@
 // 12 13 14 15
 'use strict';
 var scores = [];
+var jeffTiles = false;
+
+function useJeff() {
+  jeffTiles = true;
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048].forEach(function(num) {
+    var numClass = 'tile-' + num;
+    var jeffClass = 'tile-' + num + '-jeff';
+    $('.' + numClass).removeClass(numClass).addClass(jeffClass);
+  });
+}
+
+function useNums() {
+  jeffTiles = false;
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048].forEach(function(num) {
+    var numClass = 'tile-' + num;
+    var jeffClass = 'tile-' + num + '-jeff';
+    $('.' + jeffClass).removeClass(jeffClass).addClass(numClass);
+  });
+}
 
 function resetScores() {
   scores = [];
@@ -18,7 +37,8 @@ function drawSquares() {
     if(scores[i] !== 0) {
       var row = Math.floor(i/4) + 1;
       var col = (i%4) + 1;
-      $('#tiles').append(['<div class="game-tile col-', col, ' row-', row, ' tile-', scores[i], '">', scores[i], '</div>'].join(''));
+      var tileType = 'tile-' + scores[i] + (jeffTiles ? '-jeff' : '');
+      $('#tiles').append(['<div class="game-tile col-', col, ' row-', row, ' ', tileType, '"></div>'].join(''));
     }
   }
 }
@@ -122,13 +142,25 @@ function initializeTiles() {
   return tileObjects;
 }
 
+function drawInitialBoard() {
+  var board = $('#2048-board');
+  for (var i = 0; i < 16; i++) {
+    board.append('<div class="game-square"></div>');
+  }
+  board.append('<div style="clear:both;"></div>');
+  board.append('<div id="tiles"></div>');
+}
+
 $(document).ready(function() {
-  resetScores();
+  drawInitialBoard();
   restartGame();
 
   Mousetrap.bind("up",    function() { pushUp();    });
   Mousetrap.bind("down",  function() { pushDown();  });
   Mousetrap.bind("left",  function() { pushLeft();  });
   Mousetrap.bind("right", function() { pushRight(); });
+
+  Mousetrap.bind("1", useNums);
+  Mousetrap.bind("2", useJeff);
 
 });

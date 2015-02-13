@@ -1,7 +1,7 @@
 function generateTwoOrFour() {
-  // 0.70 chance it's a 2, otherwise its a 4
+  // 0.925 chance it's a 2, otherwise its a 4
   var r = Math.random();
-  return r < 0.70 ? 2 : 4;
+  return r < 0.925 ? 2 : 4;
 }
 
 function randomNumberNotIn(numbers) {

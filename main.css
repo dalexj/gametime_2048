@@ -50,3 +50,13 @@ html {
 .col-2 { left: 137.5px;  }
 .col-3 { left: 262.5px;  }
 .col-4 { left: 387.5px;  }
+
+.left-sidebar {
+  float: left;
+  margin-top: 60px;
+  margin-left: 40px;
+  font-size: 2em;
+  font-family: 'Comic Sans MS', sans-serif;
+  overflow-y: scroll;
+  height: 450px;
+}
