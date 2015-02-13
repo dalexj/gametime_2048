@@ -4,6 +4,15 @@
 // 12 13 14 15
 'use strict';
 var scores = [];
+var jeffTiles = false;
+
+function useJeff() {
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+}
+
+function useNums() {
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+}
 
 function resetScores() {
   scores = [];
@@ -18,7 +27,8 @@ function drawSquares() {
     if(scores[i] !== 0) {
       var row = Math.floor(i/4) + 1;
       var col = (i%4) + 1;
-      $('#tiles').append(['<div class="game-tile col-', col, ' row-', row, ' tile-', scores[i], '">', scores[i], '</div>'].join(''));
+      var tileType = 'tile-' + scores[i] + (jeffTiles ? '-jeff' : '');
+      $('#tiles').append(['<div class="game-tile col-', col, ' row-', row, ' ', tileType, '"></div>'].join(''));
     }
   }
 }
@@ -122,8 +132,17 @@ function initializeTiles() {
   return tileObjects;
 }
 
+function drawInitialBoard() {
+  var board = $('#2048-board')
+  for (var i = 0; i < 16; i++) {
+    board.append('<div class="game-square"></div>');
+  }
+  board.append('<div style="clear:both;"></div>');
+  board.append('<div id="tiles"></div>');
+}
+
 $(document).ready(function() {
-  resetScores();
+  drawInitialBoard();
   restartGame();
 
   Mousetrap.bind("up",    function() { pushUp();    });
