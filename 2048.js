@@ -160,4 +160,7 @@ $(document).ready(function() {
   Mousetrap.bind("left",  function() { pushLeft();  });
   Mousetrap.bind("right", function() { pushRight(); });
 
+  Mousetrap.bind("1", useNums);
+  Mousetrap.bind("2", useJeff);
+
 });
