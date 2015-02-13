@@ -2,6 +2,7 @@
   <head>
     <title>2048 with Herb and Al</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="tiles.css">
     <script src="jquery.min.js"></script>
     <script src="mousetrap.js"></script>
     <script src="number-generation.js"></script>
@@ -13,14 +14,23 @@
     <button onclick="pushRight();">Push right</button>
     <button onclick="pushDown();">Push down</button>
     <button onclick="pushUp();">Push up</button>
-    <div class="board">
-      <div class="game-square"></div><div class="game-square"></div><div class="game-square"></div><div class="game-square"></div>
-      <div class="game-square"></div><div class="game-square"></div><div class="game-square"></div><div class="game-square"></div>
-      <div class="game-square"></div><div class="game-square"></div><div class="game-square"></div><div class="game-square"></div>
-      <div class="game-square"></div><div class="game-square"></div><div class="game-square"></div><div class="game-square"></div>
-      <div style="clear:both;"></div>
-      <div id="tiles">
-      </div>
+    <button onclick="useNums();">Use Nums</button>
+    <button onclick="useJeff();">Use Jeff</button>
+    <div class="left-sidebar">
+      <table>
+        <tr><td>2</td><td><img src="images/jeff-2.png"/></td></tr>
+        <tr><td>4</td><td><img src="images/jeff-4.png"/></td></tr>
+        <tr><td>8</td><td><img src="images/jeff-8.png"/></td></tr>
+        <tr><td>16</td><td><img src="images/jeff-16.png"/></td></tr>
+        <tr><td>32</td><td><img src="images/jeff-32.png"/></td></tr>
+        <tr><td>64</td><td><img src="images/jeff-64.png"/></td></tr>
+        <tr><td>128</td><td><img src="images/jeff-128.png"/></td></tr>
+        <tr><td>256</td><td><img src="images/jeff-256.png"/></td></tr>
+        <tr><td>512</td><td><img src="images/jeff-512.png"/></td></tr>
+        <tr><td>1024</td><td><img src="images/jeff-1024.png"/></td></tr>
+        <tr><td>2048</td><td><img src="images/jeff-2048.png"/></td></tr>
+      </table>
     </div>
+    <div id="2048-board" class="board"></div>
   </body>
 </html>

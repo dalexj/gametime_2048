@@ -1,0 +1,99 @@
+.tile-2 {
+  background: #a12;
+}
+.tile-2:after {
+  content: '2';
+}
+.tile-2-jeff {
+  background-image: url('images/jeff-2.png');
+}
+.tile-4 {
+  background: #ba1;
+}
+.tile-4:after {
+  content: '4';
+}
+.tile-4-jeff {
+  background-image: url('images/jeff-4.png');
+}
+.tile-8 {
+  background: #94f;
+}
+.tile-8:after {
+  content: '8';
+}
+.tile-8-jeff {
+  background-image: url('images/jeff-8.png');
+}
+.tile-16 {
+  background: #995;
+}
+.tile-16:after {
+  content: '16';
+}
+.tile-16-jeff {
+  background-image: url('images/jeff-16.png');
+}
+.tile-32 {
+  background: #751;
+}
+.tile-32:after {
+  content: '32';
+}
+.tile-32-jeff {
+  background-image: url('images/jeff-32.png');
+}
+.tile-64 {
+  background: #7d3;
+}
+.tile-64:after {
+  content: '64';
+}
+.tile-64-jeff {
+  background-image: url('images/jeff-64.png');
+}
+.tile-128 {
+  background: #71e;
+}
+.tile-128:after {
+  content: '128';
+}
+.tile-128-jeff {
+  background-image: url('images/jeff-128.png');
+}
+.tile-256 {
+  background: #52a;
+}
+.tile-256:after {
+  content: '256';
+}
+.tile-256-jeff {
+  background-image: url('images/jeff-256.png');
+}
+.tile-512 {
+  background: #3ec;
+}
+.tile-512:after {
+  content: '512';
+}
+.tile-512-jeff {
+  background-image: url('images/jeff-512.png');
+}
+.tile-1024 {
+  background: #439;
+}
+.tile-1024:after {
+  content: '1024';
+}
+.tile-1024-jeff {
+  background-image: url('images/jeff-1024.png');
+}
+.tile-2048 {
+  background: #788;
+}
+.tile-2048:after {
+  content: '2048';
+}
+.tile-2048-jeff {
+  background-image: url('images/jeff-2048.png');
+}
