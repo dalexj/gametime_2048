@@ -143,7 +143,7 @@ function initializeTiles() {
 }
 
 function drawInitialBoard() {
-  var board = $('#2048-board')
+  var board = $('#2048-board');
   for (var i = 0; i < 16; i++) {
     board.append('<div class="game-square"></div>');
   }
