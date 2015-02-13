@@ -7,11 +7,21 @@ var scores = [];
 var jeffTiles = false;
 
 function useJeff() {
-  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+  jeffTiles = true;
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048].forEach(function(num) {
+    var numClass = 'tile-' + num;
+    var jeffClass = 'tile-' + num + '-jeff';
+    $('.' + numClass).removeClass(numClass).addClass(jeffClass);
+  });
 }
 
 function useNums() {
-  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+  jeffTiles = false;
+  [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048].forEach(function(num) {
+    var numClass = 'tile-' + num;
+    var jeffClass = 'tile-' + num + '-jeff';
+    $('.' + jeffClass).removeClass(jeffClass).addClass(numClass);
+  });
 }
 
 function resetScores() {
