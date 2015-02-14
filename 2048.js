@@ -52,16 +52,22 @@ function restartGame() {
 
 function pushLeft(noNewTile) {
   push(true, true, noNewTile);
+  return false;
 }
 
 function pushRight(noNewTile) {
   push(true, false, noNewTile);
+  return false;
 }
+
 function pushDown(noNewTile) {
   push(false, false, noNewTile);
+  return false;
 }
+
 function pushUp(noNewTile) {
   push(false, true, noNewTile);
+  return false;
 }
 
 function push(horizontal, increasing, noNewTile) {
@@ -81,8 +87,34 @@ function push(horizontal, increasing, noNewTile) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  if(!noNewTile) placeRandomSquare();
-  drawSquares();
+  var thereWereChanges = !tiles.every(function(tile, i) { return tile.beforeIndex === i && !tile.combined; });
+  if (!noNewTile && thereWereChanges) placeRandomSquare();
+  animateTiles(tiles, horizontal, increasing);
+}
+
+function animateTiles(tiles, horizontal, increasing) {
+  for (var i = 0; i < tiles.length; i++) {
+    var nowRow = Math.floor(i / 4) + 1;
+    var nowCol = (i % 4) + 1;
+    var beforeRow = Math.floor(tiles[i].beforeIndex / 4) + 1;
+    var beforeCol = (tiles[i].beforeIndex % 4) + 1;
+
+    // this is for handling combining of squares
+    var mergedWith = tiles[i].mergedWith;
+    if(mergedWith !== undefined) {
+      nowRow = Math.floor(tiles[mergedWith].beforeIndex / 4) + 1;
+      nowCol = (tiles[mergedWith].beforeIndex % 4) + 1;
+    }
+
+    var moved = horizontal ? beforeCol - nowCol : beforeRow - nowRow;
+    var animateAmount = 125 * moved;
+    if (increasing) animateAmount *= -1;
+    var animateOptions = {};
+    animateOptions[horizontal ? "left" : "top"] = (increasing ? "+" : "-") + '=' + animateAmount;
+
+    var tileOnBoard = $(['.row-', beforeRow, '.col-', beforeCol].join(''));
+    tileOnBoard.animate(animateOptions, { duration: 200, complete: drawSquares });
+  }
 }
 
 function calculateCurrentIndex(i, j, horizontal, increasing) {
@@ -120,6 +152,7 @@ function combineTiles(tiles, currIndex, nextIndex) {
     currTile.score   *= 2;
     nextTile.score    = 0;
     currTile.combined = true;
+    nextTile.mergedWith = currIndex;
     return true;
   }
   return false;
@@ -137,7 +170,7 @@ function placeRandomSquare() {
 function initializeTiles() {
   var tileObjects = [];
   for (var i = 0; i < scores.length; i++) {
-    tileObjects.push( { score: scores[i], combined: false } );
+    tileObjects.push( { score: scores[i], combined: false, beforeIndex: i } );
   }
   return tileObjects;
 }
