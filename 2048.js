@@ -50,27 +50,27 @@ function restartGame() {
   drawSquares();
 }
 
-function pushLeft(noNewTile) {
-  push(true, true, noNewTile);
+function pushLeft(testOverride) {
+  push(true, true, testOverride);
   return false;
 }
 
-function pushRight(noNewTile) {
-  push(true, false, noNewTile);
+function pushRight(testOverride) {
+  push(true, false, testOverride);
   return false;
 }
 
-function pushDown(noNewTile) {
-  push(false, false, noNewTile);
+function pushDown(testOverride) {
+  push(false, false, testOverride);
   return false;
 }
 
-function pushUp(noNewTile) {
-  push(false, true, noNewTile);
+function pushUp(testOverride) {
+  push(false, true, testOverride);
   return false;
 }
 
-function push(horizontal, increasing, noNewTile) {
+function push(horizontal, increasing, testOverride) {
   var changed = true;
   var tiles = initializeTiles();
   while(changed) {
@@ -88,7 +88,7 @@ function push(horizontal, increasing, noNewTile) {
   }
   scores = tiles.map( function(ele) { return ele.score; } );
   var thereWereChanges = !tiles.every(function(tile, i) { return tile.beforeIndex === i && !tile.combined; });
-  if (!noNewTile && thereWereChanges) placeRandomSquare();
+  if (!testOverride && thereWereChanges) placeRandomSquare();
   animateTiles(tiles, horizontal, increasing);
 }
 
