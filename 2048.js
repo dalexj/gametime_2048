@@ -87,7 +87,8 @@ function push(horizontal, increasing, noNewTile) {
     }
   }
   scores = tiles.map( function(ele) { return ele.score; } );
-  if (!noNewTile) placeRandomSquare();
+  var thereWereChanges = !tiles.every(function(tile, i) { return tile.beforeIndex === i && !tile.combined; });
+  if (!noNewTile && thereWereChanges) placeRandomSquare();
   animateTiles(tiles, horizontal, increasing);
 }
 
@@ -98,13 +99,21 @@ function animateTiles(tiles, horizontal, increasing) {
     var beforeRow = Math.floor(tiles[i].beforeIndex / 4) + 1;
     var beforeCol = (tiles[i].beforeIndex % 4) + 1;
 
+    // this is for handling combining of squares
+    var mergedWith = tiles[i].mergedWith;
+    if(mergedWith !== undefined) {
+      nowRow = Math.floor(tiles[mergedWith].beforeIndex / 4) + 1;
+      nowCol = (tiles[mergedWith].beforeIndex % 4) + 1;
+    }
+
     var moved = horizontal ? beforeCol - nowCol : beforeRow - nowRow;
     var animateAmount = 125 * moved;
     if (increasing) animateAmount *= -1;
     var animateOptions = {};
     animateOptions[horizontal ? "left" : "top"] = (increasing ? "+" : "-") + '=' + animateAmount;
 
-    $(['.row-', beforeRow, '.col-', beforeCol].join('')).animate(animateOptions, { duration: 200, complete: drawSquares });
+    var tileOnBoard = $(['.row-', beforeRow, '.col-', beforeCol].join(''));
+    tileOnBoard.animate(animateOptions, { duration: 200, complete: drawSquares });
   }
 }
 
@@ -143,6 +152,7 @@ function combineTiles(tiles, currIndex, nextIndex) {
     currTile.score   *= 2;
     nextTile.score    = 0;
     currTile.combined = true;
+    nextTile.mergedWith = currIndex;
     return true;
   }
   return false;
@@ -160,7 +170,7 @@ function placeRandomSquare() {
 function initializeTiles() {
   var tileObjects = [];
   for (var i = 0; i < scores.length; i++) {
-    tileObjects.push( { score: scores[i], combined: false } );
+    tileObjects.push( { score: scores[i], combined: false, beforeIndex: i } );
   }
   return tileObjects;
 }
