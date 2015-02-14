@@ -1,3 +1,3 @@
 # gametime_2048
 
-DO NOT READ ME
+[Visit the game here](http://dalexj.github.io/gametime_2048/)
