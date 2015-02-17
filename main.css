@@ -11,9 +11,6 @@ html {
   background: #BBADA0;
 }
 
-.empty-square {
-}
-
 .game-square {
   float: left;
   width:  100px;
@@ -59,4 +56,21 @@ html {
   font-family: 'Comic Sans MS', sans-serif;
   overflow-y: scroll;
   height: 450px;
+}
+
+button {
+  width:  90px;
+  height: 45px;
+  margin-bottom: 0;
+  background: #EDE0C8;
+  border: 1px solid #CCC0B3;
+}
+
+button:hover {
+  background: #BBADA0;
+}
+
+.top-bar {
+  clear: both;
+  height: 60px;
 }
