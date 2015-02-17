@@ -196,4 +196,7 @@ $(document).ready(function() {
   Mousetrap.bind("1", useNums);
   Mousetrap.bind("2", useJeff);
 
+  $('#use-jeff').click(useJeff);
+  $('#use-nums').click(useNums);
+  $('#new-game').click(restartGame);
 });
