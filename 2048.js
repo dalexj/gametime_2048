@@ -48,6 +48,7 @@ function restartGame() {
   placeRandomSquare();
   placeRandomSquare();
   drawSquares();
+  $('#game-over').addClass("hidden");
 }
 
 function pushLeft(testOverride) {
@@ -86,10 +87,44 @@ function push(horizontal, increasing, testOverride) {
       }
     }
   }
+  if (noCombinations(scores) && boardFull()) endGame();
+
   scores = tiles.map( function(ele) { return ele.score; } );
+
   var thereWereChanges = !tiles.every(function(tile, i) { return tile.beforeIndex === i && !tile.combined; });
   if (!testOverride && thereWereChanges) placeRandomSquare();
+
   animateTiles(tiles, horizontal, increasing);
+}
+
+function boardFull() {
+  var emptySquares = [];
+
+  for (var i = 0; i < scores.length; i++) {
+    if (scores[i] === 0) { emptySquares.push(scores[i]); }
+  }
+
+  if (emptySquares.length < 1) { return true; } else { return false; }
+}
+
+function noCombinations(scores) {
+  var combinations = [];
+
+  for (var i = 0; i < scores.length; i++) {
+
+    if (scores[i + 1] === scores[i]  && [3, 7, 11, 15].indexOf(i) <= 0) {
+      combinations.push(scores[i]);
+    } else if (scores[i - 1] === scores[i]  && [0, 4, 8, 12].indexOf(i) <= 0) {
+      combinations.push(scores[i]);
+    } else if (scores[i + 4] === scores[i] && [12, 13, 14, 15].indexOf(i) <= 0) {
+      combinations.push(scores[i]);
+    } else if (scores[i + 4] === scores[i] && [0, 1, 2, 3].indexOf(i) <= 0) {
+      combinations.push(scores[i]);
+    }
+  }
+
+  if (combinations.length < 1 ) { return true; } else { return false; }
+  console.log(combinations.length)
 }
 
 function animateTiles(tiles, horizontal, increasing) {
@@ -182,6 +217,12 @@ function drawInitialBoard() {
   }
   board.append('<div style="clear:both;"></div>');
   board.append('<div id="tiles"></div>');
+}
+
+
+function endGame() {
+  $('#game-over').slideDown(400);
+  $('#game-over').removeClass('hidden');
 }
 
 $(document).ready(function() {
