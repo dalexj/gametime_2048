@@ -98,32 +98,28 @@ function push(horizontal, increasing, testOverride) {
 }
 
 function boardFull() {
-  var emptySquares = [];
-
   for (var i = 0; i < scores.length; i++) {
-    if (scores[i] === 0) { emptySquares.push(scores[i]); }
+    if (scores[i] === 0) return false;
   }
 
-  if (emptySquares.length < 1) { return true; } else { return false; }
+  return true;
 }
 
 function noCombinations(scores) {
-  var combinations = [];
 
   for (var i = 0; i < scores.length; i++) {
 
-    if (scores[i + 1] === scores[i]  && [3, 7, 11, 15].indexOf(i) === -1) {
-      combinations.push(scores[i]);
-    } else if (scores[i - 1] === scores[i]  && [0, 4, 8, 12].indexOf(i) === -1) {
-      combinations.push(scores[i]);
-    } else if (scores[i + 4] === scores[i] && [12, 13, 14, 15].indexOf(i) === -1) {
-      combinations.push(scores[i]);
-    } else if (scores[i + 4] === scores[i] && [0, 1, 2, 3].indexOf(i) === -1) {
-      combinations.push(scores[i]);
-    }
+    if (scores[i + 1] === scores[i] && i%4 !== 3)
+      return false;
+    if (scores[i - 1] === scores[i] && i%4 !== 0)
+      return false;
+    if (scores[i + 4] === scores[i] && i <= 11)
+      return false;
+    if (scores[i + 4] === scores[i] && i >= 4)
+      return false;
   }
 
-  if (combinations.length < 1 ) { return true; } else { return false; }
+  return true;
 }
 
 function animateTiles(tiles, horizontal, increasing) {
