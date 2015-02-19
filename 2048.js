@@ -112,19 +112,19 @@ function noCombinations(scores) {
 
   for (var i = 0; i < scores.length; i++) {
 
-    if (scores[i + 1] === scores[i]  && [3, 7, 11, 15].indexOf(i) <= 0) {
+    if (scores[i + 1] === scores[i]  && [3, 7, 11, 15].indexOf(i) === -1) {
       combinations.push(scores[i]);
-    } else if (scores[i - 1] === scores[i]  && [0, 4, 8, 12].indexOf(i) <= 0) {
+    } else if (scores[i - 1] === scores[i]  && [0, 4, 8, 12].indexOf(i) === -1) {
       combinations.push(scores[i]);
-    } else if (scores[i + 4] === scores[i] && [12, 13, 14, 15].indexOf(i) <= 0) {
+    } else if (scores[i + 4] === scores[i] && [12, 13, 14, 15].indexOf(i) === -1) {
       combinations.push(scores[i]);
-    } else if (scores[i + 4] === scores[i] && [0, 1, 2, 3].indexOf(i) <= 0) {
+    } else if (scores[i + 4] === scores[i] && [0, 1, 2, 3].indexOf(i) === -1) {
       combinations.push(scores[i]);
     }
   }
 
   if (combinations.length < 1 ) { return true; } else { return false; }
-  console.log(combinations.length)
+  console.log(combinations.length);
 }
 
 function animateTiles(tiles, horizontal, increasing) {
