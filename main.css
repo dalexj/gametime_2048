@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
 html {
   background: #ddd;
 }
@@ -9,9 +11,7 @@ html {
   margin: 50px auto;
   border-radius: 9px;
   background: #BBADA0;
-}
-
-.empty-square {
+  z-index: 1;
 }
 
 .game-square {
@@ -60,3 +60,40 @@ html {
   overflow-y: scroll;
   height: 450px;
 }
+
+#game-over {
+  position: fixed;
+  width:  500px;
+  height: 500px;
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 9px;
+  z-index: 500;
+}
+
+#game-over h1 {
+  font-family: "Roboto";
+  text-align: center;
+  margin-top: 220px;
+  font-size: -webkit-xxx-large;
+  background-color: rgba(0,0,0,0.5);
+  color:white;
+  padding: 6px;
+}
+
+button {
+  width:  90px;
+  height: 45px;
+  margin-bottom: 0;
+  background: #EDE0C8;
+  border: 1px solid #CCC0B3;
+}
+
+button:hover {
+  background: #BBADA0;
+}
+
+.top-bar {
+  clear: both;
+  height: 60px;
+}
+.hidden { display: none; }

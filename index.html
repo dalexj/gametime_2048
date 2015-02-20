@@ -9,13 +9,9 @@
     <script src="2048.js"></script>
   </head>
   <body>
-    <button onclick="restartGame();">New Game</button>
-    <button onclick="pushLeft();">Push left</button>
-    <button onclick="pushRight();">Push right</button>
-    <button onclick="pushDown();">Push down</button>
-    <button onclick="pushUp();">Push up</button>
-    <button onclick="useNums();">Use Nums</button>
-    <button onclick="useJeff();">Use Jeff</button>
+    <button id="new-game">New Game</button>
+    <button id="use-nums">Use Nums</button>
+    <button id="use-jeff">Use Jeff</button>
     <div class="left-sidebar">
       <table>
         <tr><td>2</td><td><img src="images/jeff-2.png"/></td></tr>
@@ -31,6 +27,10 @@
         <tr><td>2048</td><td><img src="images/jeff-2048.png"/></td></tr>
       </table>
     </div>
-    <div id="2048-board" class="board"></div>
+    <div id="2048-board" class="board">
+      <div class="hidden" id="game-over">
+        <h1>Game Over</h1>
+      </div>
+    </div>
   </body>
 </html>

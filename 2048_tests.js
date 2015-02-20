@@ -271,3 +271,15 @@ QUnit.test('can combine more empty spots down', function( assert ) {
   assert.deepEqual(scores, expectedScores, 'Pushing all rows down' );
 
 });
+QUnit.test('game over when no more moves', function( assert ) {
+  scores = [
+  4,    8,  16,   8,
+  8,  512,   2, 512,
+  256,  2, 512,   8,
+  4,   16,   8,   4
+  ];
+  pushDown(true);
+
+  assert.ok(noCombinations(scores) && boardFull(), 'No open squares + no combining' );
+
+});

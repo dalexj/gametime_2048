@@ -48,6 +48,7 @@ function restartGame() {
   placeRandomSquare();
   placeRandomSquare();
   drawSquares();
+  $('#game-over').hide();
 }
 
 function pushLeft(testOverride) {
@@ -86,10 +87,39 @@ function push(horizontal, increasing, testOverride) {
       }
     }
   }
+  if (noCombinations(scores) && boardFull()) endGame();
+
   scores = tiles.map( function(ele) { return ele.score; } );
+
   var thereWereChanges = !tiles.every(function(tile, i) { return tile.beforeIndex === i && !tile.combined; });
   if (!testOverride && thereWereChanges) placeRandomSquare();
+
   animateTiles(tiles, horizontal, increasing);
+}
+
+function boardFull() {
+  for (var i = 0; i < scores.length; i++) {
+    if (scores[i] === 0) return false;
+  }
+
+  return true;
+}
+
+function noCombinations(scores) {
+
+  for (var i = 0; i < scores.length; i++) {
+
+    if (scores[i + 1] === scores[i] && i%4 !== 3)
+      return false;
+    if (scores[i - 1] === scores[i] && i%4 !== 0)
+      return false;
+    if (scores[i + 4] === scores[i] && i <= 11)
+      return false;
+    if (scores[i + 4] === scores[i] && i >= 4)
+      return false;
+  }
+
+  return true;
 }
 
 function animateTiles(tiles, horizontal, increasing) {
@@ -184,6 +214,12 @@ function drawInitialBoard() {
   board.append('<div id="tiles"></div>');
 }
 
+
+function endGame() {
+  $('#game-over').slideDown(400);
+  $('#game-over').show();
+}
+
 $(document).ready(function() {
   drawInitialBoard();
   restartGame();
@@ -193,7 +229,15 @@ $(document).ready(function() {
   Mousetrap.bind("left",  function() { pushLeft();  });
   Mousetrap.bind("right", function() { pushRight(); });
 
+  Mousetrap.bind("w", function() { pushUp();    });
+  Mousetrap.bind("s", function() { pushDown();  });
+  Mousetrap.bind("a", function() { pushLeft();  });
+  Mousetrap.bind("d", function() { pushRight(); });
+
   Mousetrap.bind("1", useNums);
   Mousetrap.bind("2", useJeff);
 
+  $('#use-jeff').click(useJeff);
+  $('#use-nums').click(useNums);
+  $('#new-game').click(restartGame);
 });
